@@ -34,7 +34,6 @@ const SearchBar = () => {
         placeholder="Buscar produtos..."
         style={{ flex: 1 }}
       />
-
       <button
         onClick={handleSearch}
         title="Buscar"
@@ -44,9 +43,9 @@ const SearchBar = () => {
           border: 'none',
           cursor: 'pointer',
           padding: 0,
-        }
-      }
+        }}
       >
+        <img src={searchIcon} alt="Buscar" style={{ width: '24px', height: '24px' }} />
       </button>
       {/* Botão personalizado com a imagem SVG */}
     </div>

@@ -10,9 +10,11 @@ const Header = () => {
       <div className="flex justify-content-around flex-wrap pt-3" >
           <Logo />
           <SearchBar/>
-          <button>Cadastre-se</button>
-          <button>Entrar</button>
-          <a>Carrinho</a>
+          <div>
+            <button>Cadastre-se</button>
+            <button>Entrar</button>
+            <a>Carrinho</a>
+          </div>
       </div>
     </BrowserRouter>
    );

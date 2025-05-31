@@ -1,0 +1,21 @@
+import "/node_modules/primeflex/primeflex.css"
+import Logo from "./Logo";
+import SearchBar from "./SearchBar";
+import { BrowserRouter } from "react-router-dom";
+
+
+const Header = () => {
+  return ( 
+    <BrowserRouter>
+      <div className="flex justify-content-around flex-wrap pt-3" >
+          <Logo />
+          <SearchBar/>
+          <button>Cadastre-se</button>
+          <button>Entrar</button>
+          <a>Carrinho</a>
+      </div>
+    </BrowserRouter>
+   );
+}
+ 
+export default Header;

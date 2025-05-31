@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from './Header';
 
 // Definindo o componente de layout
 const Layout = ({ children }) => {

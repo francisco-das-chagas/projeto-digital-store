@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 const Header = () => {
   return ( 
     <BrowserRouter>
-      <div className="flex justify-content-around flex-wrap pt-3" >
+      <div className="flex justify-content-around flex-wrap pt-3 bg-primary-600" >
           <Logo />
           <SearchBar/>
           <div>

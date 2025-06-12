@@ -1,19 +1,26 @@
-import React from 'react';
-import Header from './Header';
+// Importa o que será usado: estilos, ícones e componentes
+import "primereact/resources/themes/lara-light-blue/theme.css"
+import "primeflex/themes/primeone-light.css"
+import "primereact/resources/primereact.min.css" 
+import "primeflex/primeflex.css"
+import "primeicons/primeicons.css"
+import Footer from "./Footer";
+import Header from "./Header";
 
-// Definindo o componente de layout
 const Layout = ({ children }) => {
   return (
-    <div>
-      {/* Componente do cabeçalho */}
+    <>
+      {/* Cabeçalho do site sempre visível no topo */}
       <Header />
 
-      {/* Conteúdo dinâmico das páginas */}
-      {children}
+      {/* Área principal que vai trocar conforme a rota */}
+      <main>
+        {children}
+      </main>
 
-      {/* Componente do rodapé */}
+      {/* Rodapé que aparece em todas as páginas */}
       <Footer />
-    </div>
+    </>
   );
 };
 

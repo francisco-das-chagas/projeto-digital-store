@@ -51,5 +51,34 @@ export const GlobalStyle = createGlobalStyle`
    .no-effect:focus {outline: none !important}
    .p-sidebar-mask { padding-top: 4.6rem !important ; z-index: 3 !important ;}
    
-   @keyframes fade
+   @keyframes fadeSlideOut {
+      from { opacity: 1; transform: translateX(0); }
+      to { opacity :0; transform: translateX(-30px); }
+   }
+   .fadein {
+      animation: fadeSlideIn 0.6s ease forwards;
+      z-index: 1;
+   }
+
+   .fadeout {
+      animation: fadeSlideOut 0.6s ease forwards;
+      z-index: 1;
+   }
+
+   
+   .scroll-container {
+      overflow-x: auto;
+      scrollbar-width: none;
+   }
+
+   .scroll-container::-webkit-scrollbar {
+      height: 0;
+      transition: height 0.3s ease;
+   }
+
+   .scroll-container:hover::-webkit-scrollbar { height: 8px; }
+   .scroll-container::-webkit-scrollbar-thumb {
+
+   }
 `
+

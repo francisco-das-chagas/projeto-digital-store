@@ -102,7 +102,35 @@ export const GlobalStyle = createGlobalStyle`
       color: var(--surface-a);
    }
 
+   label:hover .p-checkbox .p-checkbox-box,
+   label:hover .p-radiobutton .p-radiobutton-box {
+    border-width: .2rem;
+    border-color: var(--pink-600);
+  }
 
+  .p-dropdown {
+    & .p-dropdown-label { padding: .6rem 0; }
+    & .p-dropdown-trigger { width: 2rem; }
+  }
 
-`
-
+  .p-image-preview-indicator {
+    background-color: transparent;
+    & i {
+      font-size: 2rem;
+      padding: 3rem;
+      background-color: var(--pink-600);
+      color: var(--surface-a);
+      opacity: 0.6;
+      border-radius: 50%;
+    }
+  }
+  .p-dropdown-panel { 
+    & .p-dropdown-items {
+      & .p-dropdown-item {
+        &.p-highlight {
+          color: var(--pink-600);
+        }
+      }
+    }
+  }
+`;

@@ -78,7 +78,31 @@ export const GlobalStyle = createGlobalStyle`
 
    .scroll-container:hover::-webkit-scrollbar { height: 8px; }
    .scroll-container::-webkit-scrollbar-thumb {
-
+      border: .12rem solid var(--gray-600);
+      transition: all 0.2s;
    }
+   .p-check .p-checkbox-box {
+      border-radius: .25rem;
+   }
+
+   .p-checkbox.p-highlight .p-checkbox-box,
+   .p-radiobutton.p-highligh .p-radiobutton-box {
+      border-color: var(--pink--600);
+      background: var(--pink--600);
+      color: --surface-a; 
+   }
+
+   .p-checkbox .p-checkbox-box .p-checkbox-icon,
+  .p-radiobutton .p-radiobutton-box .p-radiobutton-icon {
+   color: var(--surface-a);
+  }
+
+   .p-checkbox.p-highlight .p-checkbox-box .p-checkbox-icon,
+   .p-radiobutton.p-highlight .p-radiobutton-icon {
+      color: var(--surface-a);
+   }
+
+
+
 `
 

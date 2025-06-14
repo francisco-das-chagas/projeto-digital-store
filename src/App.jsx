@@ -134,3 +134,40 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
 `;
+
+
+const App = () => {
+  const {
+    products: { items: product },
+    products: {
+      filter: { category },
+    },
+    siteinfo: { menu, name: siteName },
+  } = SiteData;
+
+   const location = useLocation();
+   const path = location.pathname;
+
+   const isUnderConstruction = menu.some((route) => route.link === path);
+
+   const isValidRoute = (path) => {
+      const menuLinks = menu.map((item) => item.link);
+      const extraRoutes = ["/produto/:id", "/produtos/:category"];
+      return [...menuLinks, ...extraRoutes].some((pattern) =>
+      matchPath({ path: pattern, end: true }, path)
+      );
+   };
+
+   const smoothScrollToTop = (duration) => {
+    const start = window.scrollY;
+    const startTime = performance.now();
+
+    const step = (t) => {
+      const p = Math.min((t - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      window.scrollTo(0, start * (1 - eased));
+      if (p < 1) requestAnimationFrame(step);
+    };
+
+     requestAnimationFrame(step);
+  };

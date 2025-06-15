@@ -1,10 +1,20 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import { PrimeReactProvider } from "primereact/api";
+import { CartProvider } from "./context/CartContext";
+import App from "./App";
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+const config = {
+  hideOverlaysOnDocumentScrolling: true,
+  
+};
+
+createRoot(document.getElementById("root")).render(
+  <PrimeReactProvider value={config}>
+    <BrowserRouter>
+      <CartProvider>
+        <App />
+      </CartProvider>
+    </BrowserRouter>
+  </PrimeReactProvider>
+);

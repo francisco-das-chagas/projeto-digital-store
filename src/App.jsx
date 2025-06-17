@@ -1,118 +1,139 @@
+// Importa o que será usado: funções, componentes, páginas e dados
 import { useEffect } from "react";
 import { Routes, Route, useLocation, matchPath } from "react-router-dom";
-import Layout from "./compoments/Layout";
+import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import ProductListingPage from "./pages/ProductListingPage";
 import ProductViewPage from "./pages/ProductViewPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import UnderContructionPage from "./pages/UnderConstructionPage";
+import UnderConstructionPage from "./pages/UnderConstructionPage";
+import ContactPage from "./pages/ContactPage";
 import { createGlobalStyle } from "styled-components";
-import { SiteData } from "./data";
+import { SiteData } from "./data";  // Dados vindos de um objeto externo
 
+// Define estilos globais que valem pra todas as páginas
 export const GlobalStyle = createGlobalStyle`
-
-   *,*::before, *::after {
-      outline: none;
-      list-style: none;
-      box-sizing: border-box;
-   }
-
-   body {
-      background-color: var(--gray-50);
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      line-height: 1.4;
-      overflow-x: hidden;
-   }
-
-   a {
-      text-decoration: none;
-      color: inherit;
-   }
-   ul, ol {
-      padding: 0;
-      margin: 0;
-      list-style: none;
-   }
-   img {
-      width: 100%;
-      height: auto;
-   }
-
-   .max-w-36rem {max-width: 36rem}
-   .max-w-75rem {max-width: 75rem}
-   .grid-cols-3 {grid-template-columns: repeat(3, 1fr)}
-   .rotate-340 { transform: rotate (330deg) !important; }
-   .no-effect:focus, .no-effect:active {
-      background-color: transparent !important;
-      border: none !important;
-   }
-   .no-effect:focus {outline: none !important}
-   .p-sidebar-mask { padding-top: 4.6rem !important ; z-index: 3 !important ;}
-   
-   @keyframes fadeSlideOut {
-      from { opacity: 1; transform: translateX(0); }
-      to { opacity :0; transform: translateX(-30px); }
-   }
-   .fadein {
-      animation: fadeSlideIn 0.6s ease forwards;
-      z-index: 1;
-   }
-
-   .fadeout {
-      animation: fadeSlideOut 0.6s ease forwards;
-      z-index: 1;
-   }
-
-   
-   .scroll-container {
-      overflow-x: auto;
-      scrollbar-width: none;
-   }
-
-   .scroll-container::-webkit-scrollbar {
-      height: 0;
-      transition: height 0.3s ease;
-   }
-
-   .scroll-container:hover::-webkit-scrollbar { height: 8px; }
-   .scroll-container::-webkit-scrollbar-thumb {
-      border: .12rem solid var(--gray-600);
-      transition: all 0.2s;
-   }
-   .p-check .p-checkbox-box {
-      border-radius: .25rem;
-   }
-
-   .p-checkbox.p-highlight .p-checkbox-box,
-   .p-radiobutton.p-highligh .p-radiobutton-box {
-      border-color: var(--pink--600);
-      background: var(--pink--600);
-      color: --surface-a; 
-   }
-
-   .p-checkbox .p-checkbox-box .p-checkbox-icon,
-  .p-radiobutton .p-radiobutton-box .p-radiobutton-icon {
-   color: var(--surface-a);
+  // Reset de estilos básicos
+  *, *::before, *::after {
+    outline: none;
+    list-style: none;
+    box-sizing: border-box;
   }
 
-   .p-checkbox.p-highlight .p-checkbox-box .p-checkbox-icon,
-   .p-radiobutton.p-highlight .p-radiobutton-icon {
-      color: var(--surface-a);
-   }
+  // Estilo base do body
+  body {
+    background-color: var(--gray-50);
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.4;
+    overflow-x: hidden;
+  }
 
-   label:hover .p-checkbox .p-checkbox-box,
-   label:hover .p-radiobutton .p-radiobutton-box {
+  // Remove sublinhado de links
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  // Remove margin/padding de listas
+  ul, ol {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  // Garante que imagens ocupem largura total
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  // Algumas classes utilitárias personalizadas
+  .max-w-36rem { max-width: 36rem; }
+  .max-w-75rem { max-width: 75rem; }
+  .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .rotate-340 { transform: rotate(330deg) !important; }
+  .no-effect:focus, .no-effect:active {
+    background-color: transparent !important;
+    border: none !important;
+  }
+  .no-effect:focus { outline: none !important; }
+  .p-sidebar-mask { padding-top: 4.6rem!important; z-index: 3 !important; }
+
+  // Animações para entrada/saída de componentes
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes fadeSlideOut {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(-30px); }
+  }
+  .fadein {
+    animation: fadeSlideIn 0.6s ease forwards;
+    z-index: 2;
+  }
+  .fadeout {
+    animation: fadeSlideOut 0.6s ease forwards;
+    z-index: 1;
+  }
+
+  // Scroll horizontal sem barra visível
+  .scroll-container {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .scroll-container::-webkit-scrollbar {
+    height: 0;
+    transition: height 0.3s ease;
+  }
+  .scroll-container:hover::-webkit-scrollbar { height: 8px; }
+  .scroll-container::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.3);
+    border-radius: .25rem;
+  }
+
+  // Estilo dos checkboxes e radio buttons (PrimeReact)
+  .p-checkbox .p-checkbox-box,
+  .p-radiobutton .p-radiobutton-box {
+    border: .12rem solid var(--gray-600);
+    transition: all 0.2s;
+  }
+
+  .p-checkbox .p-checkbox-box {
+    border-radius: .25rem;
+  }
+
+  .p-checkbox.p-highlight .p-checkbox-box,
+  .p-radiobutton.p-highlight .p-radiobutton-box {
+    border-color: var(--pink-600);
+    background: var(--pink-600);
+    color: var(--surface-a);
+  }
+
+  .p-checkbox .p-checkbox-box .p-checkbox-icon,
+  .p-radiobutton .p-radiobutton-box .p-radiobutton-icon {
+    color: var(--surface-a);
+  }
+
+  .p-checkbox.p-highlight .p-checkbox-box .p-checkbox-icon,
+  .p-radiobutton.p-highlight .p-radiobutton-icon {
+    color: var(--surface-a);
+  }
+
+  // Deixa borda rosa quando o label está com hover
+  label:hover .p-checkbox .p-checkbox-box,
+  label:hover .p-radiobutton .p-radiobutton-box {
     border-width: .2rem;
     border-color: var(--pink-600);
   }
 
+  // Ajustes visuais em dropdowns e preview de imagens
   .p-dropdown {
     & .p-dropdown-label { padding: .6rem 0; }
     & .p-dropdown-trigger { width: 2rem; }
   }
-
   .p-image-preview-indicator {
     background-color: transparent;
     & i {
@@ -135,8 +156,9 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
-
+// Componente principal da aplicação
 const App = () => {
+  // Puxa os dados do SiteData com desestruturação (evita repetir "SiteData." mil vezes)
   const {
     products: { items: product },
     products: {
@@ -145,20 +167,24 @@ const App = () => {
     siteinfo: { menu, name: siteName },
   } = SiteData;
 
-   const location = useLocation();
-   const path = location.pathname;
+  // Pega o caminho atual da URL
+  const location = useLocation();
+  const path = location.pathname;
 
-   const isUnderConstruction = menu.some((route) => route.link === path);
+  // Verifica se a página está em construção
+  const isUnderConstruction = menu.some((route) => route.link === path);
 
-   const isValidRoute = (path) => {
-      const menuLinks = menu.map((item) => item.link);
-      const extraRoutes = ["/produto/:id", "/produtos/:category"];
-      return [...menuLinks, ...extraRoutes].some((pattern) =>
+  // Checa se a rota acessada é válida
+  const isValidRoute = (path) => {
+    const menuLinks = menu.map((item) => item.link);
+    const extraRoutes = ["/produto/:id", "/produtos/:category"];
+    return [...menuLinks, ...extraRoutes].some((pattern) =>
       matchPath({ path: pattern, end: true }, path)
-      );
-   };
+    );
+  };
 
-   const smoothScrollToTop = (duration) => {
+  // Função para fazer a página rolar suavemente pro topo
+  const smoothScrollToTop = (duration) => {
     const start = window.scrollY;
     const startTime = performance.now();
 
@@ -169,14 +195,15 @@ const App = () => {
       if (p < 1) requestAnimationFrame(step);
     };
 
-     requestAnimationFrame(step);
+    requestAnimationFrame(step);
   };
 
-useEffect(() => {
- 
+  // Executa sempre que muda de rota
+  useEffect(() => {
+    // Sobe a tela suavemente
     smoothScrollToTop(1500);
 
-  
+    // Carrega fontes/ícones externos se ainda não estão carregados
     const links = [
       {
         id: "tabler-icons",
@@ -187,7 +214,7 @@ useEffect(() => {
         href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css",
       },
     ];
-    
+
     links.forEach(({ id, href }) => {
       if (!document.getElementById(id)) {
         const link = document.createElement("link");
@@ -198,13 +225,13 @@ useEffect(() => {
       }
     });
 
-  
+    // Define o título da aba com base na URL
     const url = new URL(window.location.href);
     const path = url.pathname;
     const searchParams = new URLSearchParams(url.search);
     let titleBase = "";
 
-
+    // Página de produto individual
     if (matchPath({ path: "/produto/:id", end: true }, path)) {
       const id = path.split("/")[2];
       const foundProduct = product.find(
@@ -212,7 +239,7 @@ useEffect(() => {
       );
       titleBase = foundProduct ? foundProduct.name : "Produto não encontrado";
     }
-    
+    // Página de listagem por category
     else if (matchPath({ path: "/produtos/:category", end: true }, path)) {
       const categoryPath = path.split("/")[2];
       const categoryItem = category?.find(
@@ -234,8 +261,8 @@ useEffect(() => {
       titleBase = partes.length
         ? partes.join(" - ")
         : "Categoria não encontrada";
-    } 
-
+    }
+    // Outras rotas normais
     else {
       const routeTitleFromMenu = menu.find((item) => item.link === path)?.name;
 
@@ -246,16 +273,19 @@ useEffect(() => {
       } else if (!isValidRoute(path)) {
         titleBase = "404 - Página não Encontrada";
       } else {
-        titleBase = ""; 
+        titleBase = ""; // Exibe só o nome do site
       }
     }
 
+    // Aplica o sufixo do nome do site
     document.title = titleBase ? `${titleBase} | ${siteName}` : siteName;
 
+    // Função pra capitalizar palavras (primeira letra maiúscula)
     function capitalize(str) {
       return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
+    // Remove os links adicionados ao sair da página
     return () => {
       links.forEach(({ id }) => {
         const existing = document.getElementById(id);
@@ -266,6 +296,7 @@ useEffect(() => {
     };
   }, [location]);
 
+  // Aqui define as rotas do app
   return (
     <>
       <GlobalStyle />

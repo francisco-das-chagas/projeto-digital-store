@@ -11,16 +11,16 @@ import ContactPage from "./pages/ContactPage";
 import { createGlobalStyle } from "styled-components";
 import { SiteData } from "./data";  // Dados vindos de um objeto externo
 
-// Define estilos globais que valem pra todas as páginas
+
 export const GlobalStyle = createGlobalStyle`
-  // Reset de estilos básicos
+ 
   *, *::before, *::after {
     outline: none;
     list-style: none;
     box-sizing: border-box;
   }
 
-  // Estilo base do body
+
   body {
     background-color: var(--gray-50);
     margin: 0;
@@ -30,26 +30,26 @@ export const GlobalStyle = createGlobalStyle`
     overflow-x: hidden;
   }
 
-  // Remove sublinhado de links
+  
   a {
     text-decoration: none;
     color: inherit;
   }
 
-  // Remove margin/padding de listas
+ 
   ul, ol {
     padding: 0;
     margin: 0;
     list-style: none;
   }
 
-  // Garante que imagens ocupem largura total
+  
   img {
     width: 100%;
     height: auto;
   }
 
-  // Algumas classes utilitárias personalizadas
+  
   .max-w-36rem { max-width: 36rem; }
   .max-w-75rem { max-width: 75rem; }
   .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }

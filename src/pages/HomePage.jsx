@@ -5,10 +5,9 @@ import CollectionListing from "../components/CollectionListing";
 import CategoryListing from "../components/CategoryListing";
 import ProductListing from "../components/ProductListing";
 import SpecialOfferCard from "../components/SpecialOfferCard";
-import { SiteData } from "../data"; // Dados vindos de um objeto externo
-
+import { SiteData } from "../data"; 
 const HomePage = () => {
-  // Pega dados do site a partir do objeto SiteData
+  
   const {
     home: {
       slider,
@@ -21,10 +20,10 @@ const HomePage = () => {
   
   return (
     <>
-      {/* Slider principal da página inicial */}
+      {}
       <HeroSlider data={slider} />
 
-      {/* Seção de Coleções em destaque */}
+      {}
       <Section
         sectionMb={2.8}
         titleMb={1.5}
@@ -33,7 +32,7 @@ const HomePage = () => {
         <CollectionListing cols={[12, 6, 4]} data={collection} />
       </Section>
 
-      {/* Seção de Categorias em destaque */}
+      {}
       <Section
         sectionMb={6}
         titleMb={1}
@@ -43,7 +42,7 @@ const HomePage = () => {
         <CategoryListing cols={[4, 3, 2]} data={category} />
       </Section>
 
-      {/* Seção de Produtos em destaque */}
+      {}
       <Section
         title="Produtos em Alta"
         titleMb={2}
@@ -53,7 +52,7 @@ const HomePage = () => {
         <ProductListing cols={[6, 3]} data={product} numProducts={8} />
       </Section>
 
-      {/* Seção de Oferta Especial */}
+      {}
       <Section
         sectionMb={0}
         className="bg-white pt-8 pb-5 xl:pb-6"

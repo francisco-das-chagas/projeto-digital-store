@@ -6,25 +6,24 @@ import Section from "../components/Section";
 import ProductListing from "../components/ProductListing";
 import ProductFilters from "../components/ProductFilters";
 import FilterSidebar from "../components/FilterSidebar";
-import { SiteData } from "../data"; // Dados vindos de um objeto externo
+import { SiteData } from "../data"; 
 
-// Desestrutura só o que vai usar dos dados
 const {
   products,
   products: { items },
 } = SiteData;
 
-// Funçãozinha pra normalizar texto (sem acento, minúsculo etc.)
+
 const normalize = (text) =>
   text?.toString().toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "") || "";
 
-// Componente da página de listagem de produtos
+
 const ProductListingPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { category = "" } = useParams(); // pega a category da URL
+  const { category = "" } = useParams(); 
 
-  // conditions pra filtros, busca, ordenação e lista filtrada
+  
   const [sortOption, setSortOption] = useState("relevantes");
   const [filters, setFilters] = useState({
     categorys: [],
@@ -35,7 +34,7 @@ const ProductListingPage = () => {
   const [searchText, setSearchText] = useState("");
   const [filteredProducts, setFilteredProducts] = useState(items);
 
-  // Lê os filtros direto da URL (query params)
+  
   const getQueryParams = () => {
     const searchParams = new URLSearchParams(location.search);
     const filter = searchParams.get("filter") || "";
@@ -71,7 +70,7 @@ const ProductListingPage = () => {
     };
   };
 
-  // Atualiza os filtros e texto de busca quando a URL muda
+  
   useEffect(() => {
     const queryFilters = getQueryParams();
     setFilters({
@@ -83,7 +82,7 @@ const ProductListingPage = () => {
     setSearchText(queryFilters.filterText);
   }, [category, location.search]);
 
-  // Filtra os produtos com base nos filtros selecionados
+  
   useEffect(() => {
     let filtered = [...items];
 
@@ -110,7 +109,7 @@ const ProductListingPage = () => {
       );
     }
 
-    // Ordena se precisar
+    
     if (sortOption === "menor-preco") {
       filtered.sort((a, b) => a.price - b.price);
     } else if (sortOption === "maior-preco") {
@@ -129,10 +128,10 @@ const ProductListingPage = () => {
       });
     }
 
-    setFilteredProducts(filtered); // atualiza o condition com os produtos filtrados
+    setFilteredProducts(filtered); 
   }, [filters, sortOption, searchText]);
 
-  // Função que atualiza filtros (brand, category, condition etc.)
+  
   const updateFilter = (filterKey, value) => {
     const searchParams = new URLSearchParams(location.search);
     let categorys = [...(filters.categorys || [])];
@@ -141,7 +140,7 @@ const ProductListingPage = () => {
     let condition = filters.condition;
     let filterTextLocal = searchText;
 
-    // Atualiza o filtro certo com base na chave
+    
     if (filterKey === "categorys") {
       categorys = categorys.includes(value)
         ? categorys.filter((cat) => cat !== value)
@@ -164,7 +163,7 @@ const ProductListingPage = () => {
       searchParams.delete("filter");
     }
 
-    // Atualiza a URL e condition com novos filtros
+    
     const primary = categorys[0] || "";
     const path = primary ? `/produtos/${primary}` : "/produtos";
 
@@ -197,7 +196,7 @@ const ProductListingPage = () => {
     return parts?.length > 0 ? parts.join(" | ") : "todos os produtos";
   };
 
-  // Mostra os filtros ativos como "chips" com botão pra remover
+  
   const renderActiveFilters = () => {
     const activeFilters = [];
 
@@ -255,7 +254,7 @@ const ProductListingPage = () => {
     </div>
   );
 
-  // Render da página (layout, filtros e produtos)
+  
   return (
     <Section 
       sectionMb={2}

@@ -7,10 +7,10 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import Section from "../components/Section";
-import { SiteData } from "../data"; // Dados vindos de um objeto externo
+import { SiteData } from "../data"; 
 
 const ContactPage = () => {
-  // Pega dados do site a partir do objeto SiteData
+ 
   const {
     siteinfo: {
       social: { title: socialTitle, tblank, redes },
@@ -22,22 +22,22 @@ const ContactPage = () => {
     },
   } = SiteData;
 
-  const toast = useRef(null); // Referência para exibir notificações
+  const toast = useRef(null); 
 
-  // Estado para armazenar os dados do formulário
+ 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
 
-  // Função que atualiza os campos conforme o usuário digita
+ 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Função para exibir notificações com o Toast
+  
   const showToast = (severity, summary, detail) => {
     toast.current.show({
       severity,
@@ -47,17 +47,16 @@ const ContactPage = () => {
     });
   };
 
-  // Validação básica de formato de e-mail usando regex
+ 
   const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-  // Lógica de envio do formulário e validação dos campos
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const errors = [];
     const { name, email, message } = formData;
 
-    // Verificações de campos obrigatórios
+
     if (!name) errors.push("Nome é obrigatório.");
     if (!email) {
       errors.push("E-mail é obrigatório.");
@@ -66,13 +65,12 @@ const ContactPage = () => {
     }
     if (!message) errors.push("Mensagem é obrigatória.");
 
-    // Se houver erros, exibe Toast de erro
+ 
     if (errors?.length > 0) {
       showToast("error", "Erro no envio", errors.join("\n"));
       return;
     }
 
-    // Envio do formulário via POST para o Formspree
     try {
       const response = await fetch("https://formspree.io/f/xjkwrqew", {
         method: "POST",
@@ -80,7 +78,6 @@ const ContactPage = () => {
         body: JSON.stringify(formData),
       });
 
-      // Sucesso: limpa o formulário e exibe Toast positivo
       if (response.ok) {
         showToast(
           "success",
@@ -92,7 +89,6 @@ const ContactPage = () => {
         throw new Error();
       }
     } catch {
-      // Erro de envio
       showToast("error", "Erro", "Sua mensagem não foi enviada!");
     }
   };
@@ -102,29 +98,27 @@ const ContactPage = () => {
       sectionMt={3}
       sectionMb={2}
     >
-      {/* Componente de notificação */}
+      {}
       <Toast ref={toast} />
 
-      {/* Cabeçalho com título e descrição */}
+      {}
       <div className="flex flex-column align-items-center text-center mb-4">
         <h1 className="text-5xl text-gray-800 mt-0 mb-4">{contactTitle}</h1>
         <p className="text-lg mb-5 xl:w-7 text-gray-700 mt-0">{description}</p>
       </div>
 
-      {/* Informações e formulário */}
+      {}
       <div className="grid flex-column-reverse md:flex-row">
-        {/* Informações de contato e redes sociais */}
+        {}
         <div className="col-12 md:col-5">
           <Card title="Informações de Contato" className="shadow-2 h-full">
             <div className="flex flex-column gap-3">
               {Object.values({ address, email, phone }).map(
                 ({ icon, name, value }, i) => {
-                  // Verifica se é email ou telefone
                   const isAddress = name.toLowerCase().includes("endereço");
                   const isEmail = name.toLowerCase().includes("e-mail");
                   const isPhone = name.toLowerCase().includes("telefone");
 
-                  // Cria o href correto
                   const href =  isAddress
                     ? `//google.com/maps/dir//${encodeURIComponent(value)}`
                     : isEmail
@@ -158,13 +152,13 @@ const ContactPage = () => {
               )}
             </div>
 
-            {/* Redes sociais */}
+            {}
             <div className="mt-3">
               <h3>{socialTitle}</h3>
               <div className="flex gap-2">
                 {redes.map(({ link, name, icon }, i) => (
                   <Link
-                    key={i} // melhor usar algo único como name do que índice
+                    key={i}
                     to={link}
                     aria-label={name}
                     role="listitem"
@@ -184,11 +178,11 @@ const ContactPage = () => {
           </Card>
         </div>
 
-        {/* Formulário de contato */}
+        {}
         <div className="col-12 md:col-7">
           <Card title="Formulário de Contato" className="shadow-2">
             <form onSubmit={handleSubmit} method="POST" className="p-fluid">
-              {/* Campo Nome */}
+              {}
               <div className="field mb-3">
                 <label htmlFor="name" className="font-medium mb-2 block">
                   Nome
@@ -202,7 +196,7 @@ const ContactPage = () => {
                 />
               </div>
 
-              {/* Campo E-mail */}
+              {}
               <div className="field mb-3">
                 <label htmlFor="email" className="font-medium mb-2 block">
                   E-mail
@@ -216,7 +210,7 @@ const ContactPage = () => {
                 />
               </div>
 
-              {/* Campo Mensagem */}
+              {}
               <div className="field mb-3">
                 <label htmlFor="message" className="font-medium mb-2 block">
                   Mensagem
@@ -231,7 +225,7 @@ const ContactPage = () => {
                 />
               </div>
 
-              {/* Botão de enviar mensagem */}
+              {}
               <Button
                 type="submit"
                 label="Enviar Mensagem"
